@@ -24,9 +24,9 @@ Ensure you have the following dependencies installed before proceeding:
 
    ```bash
    git clone https://github.com/nguyeen33/ATI_final.git
-2. Navigate to the project directory:
-    ```bash
-   cd ATI_final
+2. Change dir to frontend
+   ```bash 
+   cd frontend
 3. Install npm
     ```bash
    npm install
@@ -36,16 +36,11 @@ Ensure you have the following dependencies installed before proceeding:
 4. Set up the database and environment variables:
     ```bash
     cp .env.example .env
-
-5. Change dir to frontend
-   ```bash 
-   cd frontend
-
-7. Run the application:
+5. Run the application:
     ```bash
     npm run dev
     # or
     yarn dev
     # or
     ```
-8. Navigate to http://localhost:3000 in your browser to access the application.
+6. Navigate to http://localhost:3000 in your browser to access the application.
