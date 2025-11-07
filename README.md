@@ -27,7 +27,7 @@ Ensure you have the following dependencies installed before proceeding:
 2. Navigate to the project directory:
     ```bash
    cd ieltstrek
-3. Navigate to the project directory:
+3. Install npm
     ```bash
    npm install
     # or
