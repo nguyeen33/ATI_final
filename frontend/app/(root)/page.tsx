@@ -23,11 +23,9 @@ const RootPage = async () => {
           A place where you can mock-test your Ielts exam and get a chatbot to learn Vocabulary, Grammar and Pronounciation
         </PageHeaderDescription>
         <PageActions>
-          <TestSelectionDialog
-            trigger={
-              <Button>Test now</Button>
-            }
-          />
+          <Link href="/mock-tests">
+            <Button>Mock Tests</Button>
+          </Link>
           <ActionButton
             actionType="create"
             editType="createAssessment"
