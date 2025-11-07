@@ -15,11 +15,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { LoginButton } from '../auth/login-button';
-import { LogoutButton } from '../auth/logout-button';
+import { LoginButton } from '../login_signup/login-button';
+import { LogoutButton } from '../login_signup/logout-button';
 import { Icons } from '../ui/icons';
 import { MainNav } from './main-nav';
 import { MobileNav } from './mobile-nav';
+import { ThemeToggle } from '../theme-toggle';
 
 interface SiteHeaderProps {
   user?: ExtendedUser;
@@ -36,8 +37,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
         />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-            {/* <ProductsCommandMenu />
-            <CartSheet /> */}
+            <ThemeToggle />
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -46,12 +46,12 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                     className="relative size-8 rounded-full"
                   >
                     <Avatar className="size-8">
-                      <AvatarImage src={user.image!} alt={user.name ?? ''} />
-                      <AvatarFallback>{user.name}</AvatarFallback>
+                      <AvatarImage src="/user.png" alt={user.name ?? ''} />
+                      <AvatarFallback>{user.name?.[0]?.toUpperCase() ?? '?'}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent className="w-56" align="end">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
@@ -65,29 +65,29 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                      <Link href="/dashboard/stores">
+                      <Link href="/dashboard" className="flex w-full items-center">
                         <DashboardIcon
                           className="mr-2 size-4"
                           aria-hidden="true"
                         />
-                        Dashboard
+                        <span>Dashboard</span>
                         <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/dashboard/billing">
+                      <Link href="/billing" className="flex w-full items-center">
                         <Icons.credit
                           className="mr-2 size-4"
                           aria-hidden="true"
                         />
-                        Billing
+                        <span>Billing</span>
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/dashboard/account">
+                      <Link href="/settings" className="flex w-full items-center">
                         <GearIcon className="mr-2 size-4" aria-hidden="true" />
-                        Settings
+                        <span>Settings</span>
                         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                       </Link>
                     </DropdownMenuItem>
@@ -95,11 +95,11 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
                     <LogoutButton>
-                      <DropdownMenuItem>
+                      <div className="flex w-full items-center">
                         <ExitIcon className="h-4 w-4 mr-2" />
-                        Logout
+                        <span>Logout</span>
                         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                      </DropdownMenuItem>
+                      </div>
                     </LogoutButton>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

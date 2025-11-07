@@ -10,7 +10,8 @@ import {
   PageHeaderHeading
 } from '@/components/page-header';
 import { ActionButton } from '@/components/test-exam/action-button';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
+import { TestSelectionDialog } from '@/components/test-exam/test-selection-dialog';
 
 const RootPage = async () => {
   const assessments = await db.assessment.findMany();
@@ -22,17 +23,19 @@ const RootPage = async () => {
           A place where you can mock-test your Ielts exam and get a chatbot to learn Vocabulary, Grammar and Pronounciation
         </PageHeaderDescription>
         <PageActions>
-          <Link href="/" className={cn(buttonVariants())}>
-            Test Now
-          </Link>
+          <TestSelectionDialog
+            trigger={
+              <Button>Test now</Button>
+            }
+          />
           <ActionButton
             actionType="create"
             editType="createAssessment"
             data={{}}
           >
-            <div className={buttonVariants({ variant: 'outline' })}>
-              Create Now
-            </div>
+            <Button variant="outline">
+              Create
+            </Button>
           </ActionButton>
         </PageActions>
       </PageHeader>
@@ -44,13 +47,14 @@ const RootPage = async () => {
         linkText="View all test"
         className="pt-8 md:pt-10 lg:pt-12"
       >
-        {assessments.map(
-          (assessment) => (
+        {assessments
+          .filter((assessment: Assessment) => assessment.name !== '16')
+          .map((assessment) => (
             // assessment.isPublic && (
             <AssessmentCard key={assessment.id} assessment={assessment} />
-          )
+          ))
           // )
-        )}
+        }
       </ContentSection>
     </div>
   );

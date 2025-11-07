@@ -103,24 +103,52 @@ model Question {
 
   questionNumber Int
   correctAnswer  String
-  explain        String?
-  respond        String?
+  explain       String?
+  respond       String?
 
   questionGroupId String
   questionGroup   QuestionGroup @relation(fields: [questionGroupId], references: [id], onDelete: Cascade)
-  partId          String
-  part            Part          @relation(fields: [partId], references: [id])
-  assessmentId    String
-  assessment      Assessment    @relation(fields: [assessmentId], references: [id])
+  partId         String
+  part           Part          @relation(fields: [partId], references: [id])
+  assessmentId   String
+  assessment     Assessment    @relation(fields: [assessmentId], references: [id])
 
-  completionId   String?
-  completion     Completion?                @relation(fields: [completionId], references: [id])
-  multiOne       MultipleChoiceOneAnswer?
-  multiMore      MultipleChoiceMoreAnswers?
-  matchingChoice MatchingChoice?
-  identifyInfo   IdentifyingInformation?
+  completion      Completion?  @relation(fields: [completionId], references: [id])
+  completionId    String?
+  multiOne        MultipleChoiceOneAnswer?
+  multiMore       MultipleChoiceMoreAnswers?
+  matchingChoice  MatchingChoice?
+  identifyInfo    IdentifyingInformation?
 
   @@unique([assessmentId, questionNumber])
+}
+
+model TestResult {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  startTime   DateTime
+  endTime     DateTime
+
+  testId    String
+  userId    String?
+  answers   Json     // Array of Answer objects
+  
+  readingScore       Float
+  listeningScore     Float
+  writingScore       Float
+  speakingScore      Float
+  overallScore       Float
+  readingBandScore   Float
+  listeningBandScore Float
+  writingBandScore   Float
+  speakingBandScore  Float
+  overallBandScore   Float
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([testId])
 }
 
 model MultipleChoiceOneAnswer {
@@ -309,8 +337,13 @@ model User {
   role               UserRole  @default(USER)
   isTwoFactorEnabled Boolean   @default(false)
 
+  emailNotifications Boolean @default(true)
+  soundEnabled       Boolean @default(true)
+  timerWarnings     Boolean @default(true)
+
   accounts              Account[]
   twoFactorConfirmation TwoFactorConfirmation?
+  testResults          TestResult[]
 }
 
 model Account {

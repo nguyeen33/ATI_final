@@ -22,14 +22,23 @@ const ReviewAndExplainRender = async ({
   if (!assessment) {
     return notFound();
   }
-  const part = partIndex ? assessment.parts[partIndex] : assessment.parts[0];
+  const parts = assessment.parts || [];
+  if (parts.length === 0) {
+    return (
+      <div className="max-h-[400px] h-[400px] flex items-center justify-center border-24 rounded-3xl border-t-0 border-secondary">
+        <div className="text-sm text-muted-foreground">No parts available for this assessment.</div>
+      </div>
+    );
+  }
+  const safeIndex = typeof partIndex === 'number' && partIndex >= 0 && partIndex < parts.length ? partIndex : 0;
+  const part = parts[safeIndex];
   return (
     <div className="max-h-[400px] h-[400px] flex flex-col border-24 rounded-3xl border-t-0 border-secondary">
       <div className="font-bold text-xl bg-secondary p-2">
         Review And Explanation:
       </div>
       <Suspense fallback={<></>}>
-        <PartRender part={part} totalParts={assessment.parts.length} />
+        <PartRender part={part} totalParts={parts.length} />
       </Suspense>
     </div>
   );

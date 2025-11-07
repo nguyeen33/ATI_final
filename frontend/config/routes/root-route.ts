@@ -15,37 +15,16 @@ export const siteConfig = {
   links,
   mainNav: [
     {
-      title: "Lobby",
-      items: [
-        {
-          title: "Products",
-          href: "/products",
-          description: "All the products we have to offer.",
-          items: [],
-        },
-        {
-          title: "Build a Board",
-          href: "/build-a-board",
-          description: "Build your own custom skateboard.",
-          items: [],
-        },
-        {
-          title: "Blog",
-          href: "/blog",
-          description: "Read our latest blog posts.",
-          items: [],
-        },
-      ],
+      title: "Blog",
+      href: "/blog"
     },
     {
-      title: "Account",
-      href: "/dashboard/account",
-      icon: "add",
+      title: "Mock Tests",
+      href: "/mock-tests"
     },
     {
-      title: "Stores",
-      href: "/dashboard/stores",
-      icon: "store",
+      title: "Live Lessons",
+      href: "/live-lessons"
     },
   ] satisfies MainNavItem[],
   footerNav: [

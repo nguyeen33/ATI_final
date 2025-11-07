@@ -16,9 +16,13 @@ const PartRender = async ({
   part: Part;
   totalParts: number;
 }) => {
+  const hasOrder = typeof (part as any)?.order === 'number';
+  const order: number = hasOrder ? (part as any).order : 0;
   const nextPartIndex =
-    part.order < totalParts - 1 ? part.order + 1 : undefined;
-  const prevPartIndex = part.order > 0 ? part.order - 1 : undefined;
+    hasOrder && typeof totalParts === 'number' && order < totalParts - 1
+      ? order + 1
+      : undefined;
+  const prevPartIndex = hasOrder && order > 0 ? order - 1 : undefined;
   return (
     <ResizablePanelGroup
       direction="horizontal"
@@ -26,14 +30,16 @@ const PartRender = async ({
     >
       <CustomResizablePanel>
         <div className=" mb-20">
-          <p>{part.title}</p>
-          <Suspense fallback={<></>}>
-            <QuestionGroupRender partId={part.id} />
-          </Suspense>
+          <p>{part?.title ?? ''}</p>
+          {part?.id && (
+            <Suspense fallback={<></>}>
+              <QuestionGroupRender partId={part.id} />
+            </Suspense>
+          )}
         </div>
         <div className="absolute bottom-0 left-0 bg-background w-full py-2 px-4">
           <div className="flex items-center justify-between">
-            <p>{part.title}</p>
+            <p>{part?.title ?? ''}</p>
             <ButtonNavigatePart
               prevPartIndex={prevPartIndex}
               nextPartIndex={nextPartIndex}
@@ -44,9 +50,11 @@ const PartRender = async ({
 
       <ResizableHandle withHandle />
       <CustomResizablePanel>
-        <Suspense fallback={<></>}>
-          <PassageRender partId={part.id} />
-        </Suspense>
+        {part?.id && (
+          <Suspense fallback={<></>}>
+            <PassageRender partId={part.id} />
+          </Suspense>
+        )}
       </CustomResizablePanel>
     </ResizablePanelGroup>
   );

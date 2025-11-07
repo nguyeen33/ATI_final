@@ -46,13 +46,15 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     if (!selectedAssessment || selectedPart || !mode) return;
 
     setTimeRemaining(3600);
+    const total = Number(selectedAssessment.totalQuestions) || 0;
     setQuestionRefs(() =>
-      Array.from({ length: selectedAssessment.totalQuestions }, () =>
-        createRef<HTMLDivElement>()
-      )
+      Array.from({ length: Math.max(total, 0) }, () => createRef<HTMLDivElement>())
     );
-    setActiveTab(selectedAssessment.parts[0].id);
-    setSelectedPart(selectedAssessment.parts[0]);
+
+    if (selectedAssessment.parts && selectedAssessment.parts.length > 0) {
+      setActiveTab(selectedAssessment.parts[0].id);
+      setSelectedPart(selectedAssessment.parts[0]);
+    }
   }, [selectedAssessment, selectedPart, mode]);
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -65,17 +67,16 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   useEffect(() => {
     if (!selectedAssessment || !activeTab || !mode) return;
 
-    const partIndex = selectedAssessment.parts.findIndex(
-      (part) => part.id === activeTab
-    );
+    const parts = selectedAssessment.parts || [];
+    const partIndex = parts.findIndex((part) => part.id === activeTab);
 
     if (partIndex !== -1) {
-      setSelectedPart(selectedAssessment.parts[partIndex]);
+      setSelectedPart(parts[partIndex]);
 
-      const firstQuestionGroup =
-        selectedAssessment.parts[partIndex].questionGroups[0];
-      if (firstQuestionGroup) {
-        setCurrentRef(firstQuestionGroup.startQuestionNumber - 1);
+      const groups = parts[partIndex].questionGroups || [];
+      const firstQuestionGroup = groups[0];
+      if (firstQuestionGroup && typeof firstQuestionGroup.startQuestionNumber === 'number') {
+        setCurrentRef(Math.max(firstQuestionGroup.startQuestionNumber - 1, 0));
       }
     }
   }, [selectedAssessment, activeTab, mode]);

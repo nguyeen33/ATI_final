@@ -1,0 +1,27 @@
+model TestResult {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  startTime   DateTime
+  endTime     DateTime
+
+  testId    String
+  userId    String?
+  answers   Json     // Array of Answer objects
+  
+  readingScore       Float
+  listeningScore     Float
+  writingScore       Float
+  speakingScore      Float
+  overallScore       Float
+  readingBandScore   Float
+  listeningBandScore Float
+  writingBandScore   Float
+  speakingBandScore  Float
+  overallBandScore   Float
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([testId])
+}

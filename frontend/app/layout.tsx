@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import "@/styles/globals.css";
 import { Toaster } from "sonner";
 import { auth } from "@/auth";
@@ -7,6 +8,8 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { GlobalState } from "@/global/global-state";
 import { ModalProvider } from "@/global/modal-provider";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,10 +23,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  const headersList = headers();
+  const pathname = headersList.get("x-invoke-path") || "";
+  const showHeaderFooter = pathname !== "/" && !pathname?.startsWith('/mock-tests/');
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
-        <body>
+        <body className={inter.className}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -32,8 +38,13 @@ export default async function RootLayout({
           >
             <GlobalState>
               <ModalProvider />
-
-              {children}
+              <div className="relative flex min-h-screen flex-col">
+                {showHeaderFooter && <SiteHeader user={session?.user} />}
+                <main className="flex-1">
+                  {children}
+                </main>
+                {showHeaderFooter && <SiteFooter />}
+              </div>
             </GlobalState>
             <Toaster closeButton />
           </ThemeProvider>

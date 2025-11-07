@@ -2,19 +2,6 @@
 
 ## Welcome to the IELTS Exam Simulation website!
 
-
-## Table of Contents
-
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Database Structure](#database-structure)
-- [Models](#models)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Features
 
 - **Realistic Simulation:** Experience a lifelike emulation of IELTS Reading and Listening sections.
@@ -49,11 +36,15 @@ Ensure you have the following dependencies installed before proceeding:
 4. Set up the database and environment variables:
     ```bash
     cp .env.example .env
-5. Run the application:
+
+5. Change dir to frontend
+    cd frontend
+
+6. Run the application:
     ```bash
     npm run dev
     # or
     yarn dev
     # or
     ```
-6. Visit http://localhost:3000 in your browser to access the application.
+7. Navigate to http://localhost:3000 in your browser to access the application.
