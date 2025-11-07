@@ -26,7 +26,7 @@ Ensure you have the following dependencies installed before proceeding:
    git clone https://github.com/nguyeen33/ATI_final.git
 2. Navigate to the project directory:
     ```bash
-   cd ieltstrek
+   cd ATI_final
 3. Install npm
     ```bash
    npm install
