@@ -9,6 +9,7 @@
     "prettier-plugin-prisma",
     "@trivago/prettier-plugin-sort-imports"
   ],
+  
   "importOrder": [
     "^.+\\.scss$",
     "^.+\\.css$",
@@ -31,5 +32,5 @@
   "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
   "importOrderMergeDuplicateImports": true,
   "importOrderCombineTypeAndValueImports": true
-  
+
 }
