@@ -38,13 +38,14 @@ Ensure you have the following dependencies installed before proceeding:
     cp .env.example .env
 
 5. Change dir to frontend
-    cd frontend
+   ```bash 
+   cd frontend
 
-6. Run the application:
+7. Run the application:
     ```bash
     npm run dev
     # or
     yarn dev
     # or
     ```
-7. Navigate to http://localhost:3000 in your browser to access the application.
+8. Navigate to http://localhost:3000 in your browser to access the application.
