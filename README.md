@@ -23,7 +23,7 @@ Ensure you have the following dependencies installed before proceeding:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/nvtai040502/ieltstrek.git
+   git clone https://github.com/nguyeen33/ATI_final.git
 2. Navigate to the project directory:
     ```bash
    cd ieltstrek
