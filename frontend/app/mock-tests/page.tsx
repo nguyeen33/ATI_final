@@ -1,16 +1,18 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+'use client';
+
+import Image from 'next/image';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { TestSelectionDialog } from '@/components/test-exam/test-selection-dialog';
 
 const mockTests = [
   { id: '1', name: '16', image: '/mock-tests/ieltsTest.png' },
   { id: '2', name: '17', image: '/mock-tests/ieltsTest.png' },
-  { id: '3', name: '18', image: '/mock-tests/ieltsTest.png'},
-  { id: '4', name: '19', image: '/mock-tests/ieltsTest.png'}
-]
+  { id: '3', name: '18', image: '/mock-tests/ieltsTest.png' },
+  { id: '4', name: '19', image: '/mock-tests/ieltsTest.png' }
+];
 
-const MockTestsPage = () => {
+export default function MockTestsPage() {
   return (
     <div className="container py-10">
       <h1 className="text-3xl font-bold tracking-tight">Mock Tests</h1>
@@ -33,25 +35,20 @@ const MockTestsPage = () => {
               />
             </div>
             <div className="p-4 mt-auto">
-              <Link
-                href={`/mock-tests/${test.id}?mode=exam`}
-                className={cn(buttonVariants({ className: 'w-full' }))}
-              >
-                Start Test
-              </Link>
+              <TestSelectionDialog
+                trigger={
+                  <button className={cn(buttonVariants({ className: 'w-full' }))}>
+                    Start Test
+                  </button>
+                }
+                testId={test.id}
+              />
             </div>
           </div>
         ))}
       </div>
-
-      <div className="mt-6 text-sm text-muted-foreground">
-        Note: You must attempt and after completion of the test, the result will be auto generated and
-        appears in your Test Result section of the dashboard.
-      </div>
     </div>
-  )
+  );
 }
-
-export default MockTestsPage
 
 

@@ -22,6 +22,11 @@ export const ActionButton = ({
   const { onOpen, onClose } = useEditHook();
   const { mode } = useContext(ExamContext);
   const pathName = usePathname();
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
   const renderIcon = () => {
     switch (actionType) {
       case 'create':
@@ -36,9 +41,14 @@ export const ActionButton = ({
         return null;
     }
   };
+  if (!isClient) {
+    return null;
+  }
+
   if (mode !== 'edit' && pathName !== '/') {
     return null;
   }
+
   return (
     <Button
       variant="ghost"

@@ -15,9 +15,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 
 interface TestSelectionDialogProps {
   trigger: React.ReactNode;
+  testId?: string;
 }
 
-export function TestSelectionDialog({ trigger }: TestSelectionDialogProps) {
+export function TestSelectionDialog({ trigger, testId }: TestSelectionDialogProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
@@ -38,7 +39,7 @@ export function TestSelectionDialog({ trigger }: TestSelectionDialogProps) {
             className="cursor-pointer hover:border-primary transition-colors"
             onClick={() => {
               setOpen(false);
-              router.push('/mock-tests/reading');
+              router.push(`/mock-tests/${testId || '1'}/reading?mode=exam`);
             }}
           >
             <CardHeader>
@@ -59,7 +60,7 @@ export function TestSelectionDialog({ trigger }: TestSelectionDialogProps) {
             className="cursor-pointer hover:border-primary transition-colors"
             onClick={() => {
               setOpen(false);
-              router.push('/mock-tests/listening');
+              router.push(`/mock-tests/${testId || '1'}/listening?mode=exam`);
             }}
           >
             <CardHeader>
